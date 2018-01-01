@@ -4,13 +4,12 @@ Command-line Interface for random notes.
 
 ## Features
 
-* [] Read From File
-* [] Write To File
-* [] Parse Data
+* [x] Read From File
+* [x] Write To File
 * [x] Create
 * [x] Read
-* [] Update
-* [] Delete
+* [x] Update
+* [x] Delete
 * [] Search
 
 ## Usage Example

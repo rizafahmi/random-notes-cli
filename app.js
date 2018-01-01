@@ -1,9 +1,11 @@
+'use strict'
+
 const shortid = require('shortid')
 const fs = require('fs')
 
 const File = require('./helpers/file')
 
-const main = async () => {
+async function main () {
   let data = await File.read('./db.json')
   const argv = process.argv.slice(2)
 
@@ -37,12 +39,11 @@ const main = async () => {
       console.log(data.length)
       break
     case 'edit':
-      const id = argv[1]
+      let id = argv[1]
       const newTitle = argv[2]
       const newContent = argv[3]
       const oldData = data.filter(data => data._id === id)
       let newData = data.filter(data => data._id !== id)
-      console.log(oldData)
       newData.push({
         _id: id,
         title: newTitle,
@@ -53,6 +54,13 @@ const main = async () => {
       console.dir(newData, { colors: true })
       File.save('./db.json', newData)
       break
+    case 'remove':
+      const deleteId = argv[1]
+      const cleanData = data.filter(data => data._id !== deleteId)
+      console.dir(cleanData, { colors: true })
+      File.save('./db.json', cleanData)
+      break
+
     default:
       console.log(`Don't know how to process this.`)
   }
