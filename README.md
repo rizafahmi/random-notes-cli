@@ -4,8 +4,8 @@ Command-line Interface for random notes.
 
 ## Features
 
-* [] Create
-* [] Read
+* [x] Create
+* [x] Read
 * [] Update
 * [] Delete
 * [] Search
