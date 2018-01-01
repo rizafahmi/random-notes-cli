@@ -9,15 +9,15 @@ const main = async () => {
 
   switch (argv[0]) {
     case 'add':
-      const newData = {
+      let newNote = {
         _id: shortid.generate(),
         title: argv[1],
         content: argv[2],
         createdAt: new Date()
       }
 
-      data.push(newData)
-      console.dir(newData, { colors: true })
+      data.push(newNote)
+      console.dir(newNote, { colors: true })
       try {
         await File.save('./db.json', data)
       } catch (error) {
@@ -40,14 +40,18 @@ const main = async () => {
       const id = argv[1]
       const newTitle = argv[2]
       const newContent = argv[3]
-      data = data.filter(data => data._id !== id)
-      const newNote = {
+      const oldData = data.filter(data => data._id === id)
+      let newData = data.filter(data => data._id !== id)
+      console.log(oldData)
+      newData.push({
         _id: id,
         title: newTitle,
-        content: newContent
-      }
-      data.push(newNote)
-      console.dir(data, { colors: true })
+        content: newContent,
+        createdAt: oldData[0].createdAt,
+        updatedAt: new Date()
+      })
+      console.dir(newData, { colors: true })
+      File.save('./db.json', newData)
       break
     default:
       console.log(`Don't know how to process this.`)
